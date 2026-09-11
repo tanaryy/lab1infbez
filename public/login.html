@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — Fittology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon"><div class="logo-icon-inner">F</div></div>
+                    <div class="logo-text">
+                        <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        <span class="logo-tagline">Фитнес с умом</span>
+                    </div>
+                </a>
+            </div>
+            <div class="header-actions">
+                <div id="authSlot" class="auth-slot"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="auth-card">
+            <h1>Вход</h1>
+            <p class="auth-subtitle">Войдите, чтобы открыть раздел «Клубные карты»</p>
+
+            <div id="loginError" class="auth-error"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" placeholder="Логин" required class="form-input" autocomplete="username">
+                    <i class="fas fa-user form-icon"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Пароль" required class="form-input" autocomplete="current-password">
+                    <i class="fas fa-lock form-icon"></i>
+                </div>
+                <button type="submit" class="btn btn-large btn-accent form-submit" style="width:100%">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+
+            <div class="auth-switch">
+                Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth-ui.js"></script>
+    <script>
+        const form = document.getElementById('loginForm');
+        const errorBox = document.getElementById('loginError');
+
+        function getNextUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('next') || 'index.html';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorBox.classList.remove('visible');
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    errorBox.textContent = data.error || 'Не удалось войти';
+                    errorBox.classList.add('visible');
+                    return;
+                }
+
+                window.location.href = getNextUrl();
+            } catch (err) {
+                errorBox.textContent = 'Ошибка соединения с сервером';
+                errorBox.classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>

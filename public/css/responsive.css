@@ -1,0 +1,241 @@
+/* Tablets */
+@media (max-width: 992px) {
+    .header-container {
+        flex-wrap: wrap;
+        padding: 15px 0;
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        margin-top: 20px;
+        display: none;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .main-nav.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .nav-link {
+        padding: 15px;
+        border-bottom: 1px solid var(--light-gray);
+        justify-content: center;
+    }
+
+    .header-actions {
+        order: 2;
+        margin-left: auto;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-end;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        order: 1;
+    }
+
+    .mobile-menu-btn.active .menu-line:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active .menu-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-btn.active .menu-line:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .hero {
+        height: 500px;
+        margin-top: 120px;
+    }
+
+    .slide-title {
+        font-size: 32px;
+    }
+
+    .slide-description {
+        font-size: 18px;
+    }
+
+    .slider-controls {
+        padding: 0 20px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .cta-title {
+        font-size: 32px;
+    }
+
+    .modal-container {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .modal-header {
+        padding: 20px;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .test-step h3 {
+        font-size: 20px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero {
+        height: 450px;
+        margin-top: 130px;
+    }
+
+    .slide-title {
+        font-size: 28px;
+    }
+
+    .slide-description {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .slide-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .slider-controls {
+        bottom: 20px;
+        padding: 0 15px;
+    }
+
+    .slider-control {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .features-section,
+    .cta-section {
+        padding: 70px 0;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .section-subtitle {
+        font-size: 16px;
+    }
+
+    .feature-card {
+        padding: 30px 20px;
+    }
+
+    .trial-form {
+        padding: 30px 20px;
+    }
+
+    .cta-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .footer-content {
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .hero {
+        height: 400px;
+        margin-top: 140px;
+        border-radius: 0;
+    }
+
+    .slide-title {
+        font-size: 24px;
+    }
+
+    .slide-description {
+        font-size: 14px;
+    }
+
+    .logo-main {
+        font-size: 24px;
+    }
+
+    .logo-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logo-icon-inner {
+        font-size: 24px;
+    }
+
+    .phone-link {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .btn-large {
+        padding: 14px 28px;
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+}

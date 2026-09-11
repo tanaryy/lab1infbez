@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Клубные карты и цены - Fittology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+    <style>
+        /* Дополнительные стили для страницы карт */
+        .cards-hero {
+            margin-top: 90px;
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cards-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=10') center/cover;
+            opacity: 0.1;
+        }
+        
+        .cards-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cards-hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .cards-hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .cards-container {
+            padding: 80px 0;
+        }
+        
+        .cards-section {
+            margin-bottom: 80px;
+        }
+        
+        .cards-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Карточки цен */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .pricing-card.popular {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(233, 196, 106, 0.3);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 32px;
+        }
+        
+        .card-title {
+            font-size: 24px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .card-price {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .card-period {
+            color: var(--gray);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .card-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-features i {
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .card-features .not-included {
+            color: var(--gray);
+            opacity: 0.6;
+        }
+        
+        .card-features .not-included i {
+            color: var(--gray);
+        }
+        
+        /* Дополнительные услуги */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--primary);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .service-title {
+            font-size: 20px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .service-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .service-description {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Блок с акциями */
+        .promo-section {
+            background: rgba(233, 196, 106, 0.1);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            margin-top: 60px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .promo-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .promo-text {
+            flex: 1;
+        }
+        
+        .promo-text h3 {
+            font-size: 28px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .promo-text p {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .promo-list {
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        
+        .promo-list li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .promo-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .promo-timer {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            min-width: 250px;
+        }
+        
+        .timer-title {
+            font-size: 18px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .timer-display {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .timer-label {
+            font-size: 14px;
+            color: var(--gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* FAQ секция */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            font-size: 18px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 50px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .back-button:hover {
+            color: var(--secondary);
+            gap: 15px;
+        }
+        
+        /* Медиа-запросы */
+        @media (max-width: 992px) {
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
+            }
+            
+            .promo-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .promo-timer {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cards-hero {
+                padding: 60px 0;
+                margin-top: 80px;
+            }
+            
+            .cards-hero h1 {
+                font-size: 32px;
+            }
+            
+            .cards-container {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .card-price {
+                font-size: 36px;
+            }
+            
+            .promo-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-icon-inner">F</div>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        <span class="logo-tagline">Фитнес с умом</span>
+                    </div>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home nav-icon"></i>Главная</a></li>
+                    <li class="nav-item"><a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt nav-icon"></i>Расписание</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link"><i class="fas fa-dumbbell nav-icon"></i>Услуги</a></li>
+                    <li class="nav-item"><a href="cards.html" class="nav-link active"><i class="fas fa-credit-card nav-icon"></i>Клубные карты</a></li>
+                    <li class="nav-item"><a href="#contacts" class="nav-link"><i class="fas fa-phone-alt nav-icon"></i>Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div id="authSlot" class="auth-slot"></div>
+                <div class="phone-number">
+                    <i class="fas fa-phone phone-icon"></i>
+                    <a href="tel:+74922494675" class="phone-link">+7 (4922) 49-46-75</a>
+                </div>
+                <a href="index.html#trial-form" class="btn btn-primary btn-trial" id="trialBtn">
+                    <i class="fas fa-dumbbell btn-icon"></i>Пробная тренировка
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="cards-hero">
+        <div class="container cards-hero-content">
+            <h1>КЛУБНЫЕ КАРТЫ И ЦЕНЫ</h1>
+            <p>Выберите оптимальный вариант для достижения ваших фитнес-целей. Гибкая система скидок и специальные предложения для новых клиентов.</p>
+            <a href="#pricing" class="btn btn-large btn-accent">
+                <i class="fas fa-gem"></i> Выбрать карту
+            </a>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="cards-container" id="pricing">
+        <div class="container">
+            <!-- Основные клубные карты -->
+            <div class="cards-section">
+                <div class="section-header">
+                    <h2 class="section-title">КЛУБНЫЕ КАРТЫ</h2>
+                    <p class="section-subtitle">Доступные варианты абонементов с различными возможностями</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <!-- Карта START -->
+                    <div class="pricing-card">
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="card-title">START</h3>
+                        <div class="card-price">1 900 ₽</div>
+                        <div class="card-period">в месяц</div>
+                        
+                        <ul class="card-features">
+                            <li><i class="fas fa-check"></i> Тренажерный зал в дневное время</li>
+                            <li><i class="fas fa-check"></i> Групповые занятия (утренние)</li>
+                            <li><i class="fas fa-times not-included"></i> Бассейн</li>
+                            <li><i class="fas fa-times not-included"></i> Сауна и хамам</li>
+                            <li><i class="fas fa-check"></i> 1 бесплатная тренировка с тренером</li>
+                            <li><i class="fas fa-check"></i> Фитнес-тестирование при покупке</li>
+                        </ul>
+                        
+                        <a href="index.html#trial-form" class="btn btn-primary">Выбрать карту</a>
+                    </div>
+                    
+                    <!-- Карта ACTIVE (ПОПУЛЯРНАЯ) -->
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">ВЫБОР КЛУБА</div>
+                        <div class="card-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3 class="card-title">ACTIVE</h3>
+                        <div class="card-price">3 900 ₽</div>
+                        <div class="card-period">в месяц</div>
+                        
+                        <ul class="card-features">
+                            <li><i class="fas fa-check"></i> Тренажерный зал в любое время</li>
+                            <li><i class="fas fa-check"></i> Все групповые занятия</li>
+                            <li><i class="fas fa-check"></i> Бассейн 3 раза в неделю</li>
+                            <li><i class="fas fa-check"></i> Сауна и хамам 2 раза в неделю</li>
+                            <li><i class="fas fa-check"></i> 4 бесплатные тренировки с тренером</li>
+                            <li><i class="fas fa-check"></i> Заморозка карты до 14 дней</li>
+                            <li><i class="fas fa-check"></i> Персональная программа тренировок</li>
+                        </ul>
+                        
+                        <a href="index.html#trial-form" class="btn btn-accent">Выбрать карту</a>
+                    </div>
+                    
+                    <!-- Карта PREMIUM -->
+                    <div class="pricing-card">
+                        <div class="card-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="card-title">PREMIUM</h3>
+                        <div class="card-price">5 900 ₽</div>
+                        <div class="card-period">в месяц</div>
+                        
+                        <ul class="card-features">
+                            <li><i class="fas fa-check"></i> Полный доступ ко всем зонам</li>
+                            <li><i class="fas fa-check"></i> Неограниченный бассейн</li>
+                            <li><i class="fas fa-check"></i> Сауна и хамам без ограничений</li>
+                            <li><i class="fas fa-check"></i> 8 бесплатных тренировок с тренером</li>
+                            <li><i class="fas fa-check"></i> Заморозка карты до 30 дней</li>
+                            <li><i class="fas fa-check"></i> Приоритетная запись на занятия</li>
+                            <li><i class="fas fa-check"></i> Персональный шкафчик</li>
+                            <li><i class="fas fa-check"></i> Бесплатные гостевые визиты (2 в месяц)</li>
+                        </ul>
+                        
+                        <a href="index.html#trial-form" class="btn btn-primary">Выбрать карту</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Семейные и корпоративные карты -->
+            <div class="cards-section">
+                <div class="section-header">
+                    <h2 class="section-title">СЕМЕЙНЫЕ И КОРПОРАТИВНЫЕ КАРТЫ</h2>
+                    <p class="section-subtitle">Специальные условия для семей и компаний</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <!-- Семейная карта -->
+                    <div class="pricing-card">
+                        <div class="card-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="card-title">СЕМЕЙНАЯ</h3>
+                        <div class="card-price">6 900 ₽</div>
+                        <div class="card-period">в месяц за двоих</div>
+                        
+                        <ul class="card-features">
+                            <li><i class="fas fa-check"></i> 2 карты PREMIUM уровня</li>
+                            <li><i class="fas fa-check"></i> Экономия 30% на вторую карту</li>
+                            <li><i class="fas fa-check"></i> Общие гостевые визиты (4 в месяц)</li>
+                            <li><i class="fas fa-check"></i> Семейные мероприятия в клубе</li>
+                            <li><i class="fas fa-check"></i> Скидка 50% на детские занятия</li>
+                            <li><i class="fas fa-check"></i> Совместные тренировки с тренером</li>
+                        </ul>
+                        
+                        <a href="index.html#trial-form" class="btn btn-primary">Выбрать карту</a>
+                    </div>
+                    
+                    <!-- Корпоративная карта -->
+                    <div class="pricing-card">
+                        <div class="card-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="card-title">КОРПОРАТИВНАЯ</h3>
+                        <div class="card-price">2 900 ₽</div>
+                        <div class="card-period">в месяц за сотрудника</div>
+                        
+                        <ul class="card-features">
+                            <li><i class="fas fa-check"></i> Карты ACTIVE уровня для сотрудников</li>
+                            <li><i class="fas fa-check"></i> От 10 человек в компании</li>
+                            <li><i class="fas fa-check"></i> Гибкий график оплаты</li>
+                            <li><i class="fas fa-check"></i> Корпоративные турниры и events</li>
+                            <li><i class="fas fa-check"></i> Лекции о здоровье на рабочем месте</li>
+                            <li><i class="fas fa-check"></i> Специальная зона для встреч</li>
+                        </ul>
+                        
+                        <a href="index.html#trial-form" class="btn btn-primary">Выбрать карту</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Дополнительные услуги -->
+            <div class="cards-section">
+                <div class="section-header">
+                    <h2 class="section-title">ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ</h2>
+                    <p class="section-subtitle">Разовые услуги и дополнительные опции</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4 class="service-title">Персональный тренинг</h4>
+                        <div class="service-price">1 500 ₽</div>
+                        <p class="service-description">Индивидуальная тренировка с профессиональным тренером</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4 class="service-title">План питания</h4>
+                        <div class="service-price">2 500 ₽</div>
+                        <p class="service-description">Индивидуальный план питания на месяц с консультацией диетолога</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-swimmer"></i>
+                        </div>
+                        <h4 class="service-title">Разовое посещение бассейна</h4>
+                        <div class="service-price">500 ₽</div>
+                        <p class="service-description">Доступ в бассейн на 2 часа (включая сауну)</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h4 class="service-title">Детская секция</h4>
+                        <div class="service-price">3 500 ₽</div>
+                        <p class="service-description">Абонемент на месяц для детских занятий (8 тренировок)</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h4 class="service-title">Индивидуальный шкафчик</h4>
+                        <div class="service-price">300 ₽</div>
+                        <p class="service-description">Аренда персонального шкафчика на месяц</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h4 class="service-title">Парковка</h4>
+                        <div class="service-price">200 ₽</div>
+                        <p class="service-description">Абонемент на парковку на месяц</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Акции и скидки -->
+            <div class="promo-section">
+                <div class="promo-content">
+                    <div class="promo-text">
+                        <h3>АКЦИИ И СПЕЦИАЛЬНЫЕ ПРЕДЛОЖЕНИЯ</h3>
+                        <p>Успейте воспользоваться выгодными предложениями! Акции действуют ограниченное время.</p>
+                        
+                        <ul class="promo-list">
+                            <li><strong>НОВИЧКАМ 25% СКИДКА</strong> на первую покупку любого абонемента</li>
+                            <li><strong>ПРИВЕДИ ДРУГА</strong> - получи месяц тренировок бесплатно</li>
+                            <li><strong>ГОДОВОЙ АБОНЕМЕНТ</strong> - скидка 20% + заморозка на 60 дней</li>
+                            <li><strong>СТУДЕНТАМ И ПЕНСИОНЕРАМ</strong> - скидка 15% на все карты</li>
+                            <li><strong>УТРЕННИЙ АБОНЕМЕНТ</strong> (до 14:00) - всего 2 500 ₽/месяц</li>
+                        </ul>
+                        
+                        <a href="index.html#trial-form" class="btn btn-accent">
+                            <i class="fas fa-gift"></i> Получить скидку
+                        </a>
+                    </div>
+                    
+                    <div class="promo-timer">
+                        <div class="timer-title">ДО КОНЦА АКЦИИ ОСТАЛОСЬ:</div>
+                        <div class="timer-display" id="promoTimer">07:23:45</div>
+                        <div class="timer-label">
+                            <span>Дни</span>
+                            <span>Часы</span>
+                            <span>Минуты</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ -->
+            <div class="cards-section">
+                <div class="section-header">
+                    <h2 class="section-title">ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</h2>
+                    <p class="section-subtitle">Ответы на популярные вопросы о клубных картах</p>
+                </div>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4 class="faq-question"><i class="fas fa-question-circle"></i> Можно ли заморозить карту?</h4>
+                        <p class="faq-answer">Да, карты ACTIVE и PREMIUM можно заморозить на 14 и 30 дней соответственно. Условия заморозки указаны в договоре.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4 class="faq-question"><i class="fas fa-question-circle"></i> Нужна ли медицинская справка?</h4>
+                        <p class="faq-answer">Для посещения бассейна справка обязательна. Для тренажерного зала и групповых занятий справка не требуется.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4 class="faq-question"><i class="fas fa-question-circle"></i> Как продлить абонемент?</h4>
+                        <p class="faq-answer">Абонемент можно продлить в любое время в отделе продаж клуба или онлайн в личном кабинете.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4 class="faq-question"><i class="fas fa-question-circle"></i> Есть ли пробный период?</h4>
+                        <p class="faq-answer">Да, мы предлагаем бесплатную пробную тренировку. Запишитесь по телефону +7 (4922) 49-46-75.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4 class="faq-question"><i class="fas fa-question-circle"></i> Можно ли передать карту другому человеку?</h4>
+                        <p class="faq-answer">Клубные карты именные и не подлежат передаче. Для корпоративных карт возможна ротация сотрудников.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4 class="faq-question"><i class="fas fa-question-circle"></i> Есть ли скидки при оплате за год?</h4>
+                        <p class="faq-answer">Да, при оплате годового абонемента действует скидка 20%. Также предоставляется возможность заморозки на 60 дней.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Вернуться на главную
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-text">
+                            <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        </div>
+                        <p class="footer-tagline">Наука о здоровом теле</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Контактная информация</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> г. Владимир, ул. Фитнесная, 15</p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+74922494675">+7 (4922) 49-46-75</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@fittology.ru">info@fittology.ru</a></p>
+                        <p><i class="fas fa-clock"></i> Пн-Пт: 7:00-23:00, Сб-Вс: 8:00-22:00</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="schedule.html">Расписание</a></li>
+                        <li><a href="index.html#services">Услуги</a></li>
+                        <li><a href="cards.html">Клубные карты</a></li>
+                        <li><a href="index.html#trainers">Тренеры</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 Фитнес-клуб Fittology. Лабораторная работа №10. Все права защищены.</p>
+                <p class="developer">Разработано для лабораторной работы по веб-технологиям</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // Адаптация main.js для страницы карт
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    this.classList.toggle('active');
+                    
+                    const isExpanded = mainNav.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
+                });
+                
+                // Close menu when clicking on a nav link
+                const navLinks = mainNav.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+            
+            // Таймер акции
+            function updatePromoTimer() {
+                const now = new Date();
+                const endOfDay = new Date();
+                endOfDay.setHours(23, 59, 59, 999);
+                
+                const diff = endOfDay - now;
+                
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                const timerDisplay = document.getElementById('promoTimer');
+                if (timerDisplay) {
+                    timerDisplay.textContent = 
+                        `${hours.toString().padStart(2, '0')}:` +
+                        `${minutes.toString().padStart(2, '0')}:` +
+                        `${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+            
+            // Запуск таймера
+            updatePromoTimer();
+            setInterval(updatePromoTimer, 1000);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === '#') return;
+                    
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (mainNav && mainNav.classList.contains('active')) {
+                            mainNav.classList.remove('active');
+                            if (mobileMenuBtn) {
+                                mobileMenuBtn.classList.remove('active');
+                                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Active navigation link
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (currentPage.includes(linkHref) || 
+                    (currentPage.includes('cards.html') && linkHref.includes('cards'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <script src="js/auth-ui.js"></script>
+</body>
+</html>

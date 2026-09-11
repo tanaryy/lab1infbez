@@ -1,0 +1,16 @@
+{
+  "name": "fittology-auth",
+  "version": "1.0.0",
+  "description": "Fitness club website with login/password authentication",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "express-rate-limit": "^7.4.0"
+  }
+}

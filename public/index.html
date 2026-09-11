@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fittology - Фитнес-клуб премиум-класса</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-icon-inner">F</div>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        <span class="logo-tagline">Фитнес с умом</span>
+                    </div>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+
+           <nav class="main-nav" id="mainNav">
+    <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home nav-icon"></i>Главная</a></li>
+        <li class="nav-item"><a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt nav-icon"></i>Расписание</a></li>
+        <li class="nav-item"><a href="#services" class="nav-link"><i class="fas fa-dumbbell nav-icon"></i>Услуги</a></li>
+        <li class="nav-item"><a href="cards.html" class="nav-link"><i class="fas fa-credit-card nav-icon"></i>Клубные карты</a></li>
+        <li class="nav-item"><a href="#contacts" class="nav-link"><i class="fas fa-phone-alt nav-icon"></i>Контакты</a></li>
+    </ul>
+</nav>
+
+            <div class="header-actions">
+                <div id="authSlot" class="auth-slot"></div>
+                <div class="phone-number">
+                    <i class="fas fa-phone phone-icon"></i>
+                    <a href="tel:+74922494675" class="phone-link">+7 (4922) 49-46-75</a>
+                </div>
+                <a href="#trial-form" class="btn btn-primary btn-trial" id="trialBtn">
+                    <i class="fas fa-dumbbell btn-icon"></i>Пробная тренировка
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero" id="home">
+        <div class="slider-container">
+            <div class="slider" id="mainSlider">
+                <!-- Slide 1 -->
+                <div class="slide active" data-slide="0">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <h1 class="slide-title">ЛУЧШИЕ АКЦИИ НА ФИТНЕС С БАССЕЙНОМ</h1>
+                                <p class="slide-description">
+                                    Тренируйся с профессионалами! Актуальные акции и персональные предложения 
+                                    в отделе продаж 49-46-75. Получите скидку 25% на первый абонемент!
+                                </p>
+                                <div class="slide-actions">
+                                    <a href="#trial-form" class="btn btn-large btn-accent">
+                                        <i class="fas fa-gift"></i> Получить предложение
+                                    </a>
+                                    <a href="#contacts" class="btn btn-large btn-outline">
+                                        <i class="fas fa-phone"></i> Записаться
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide" data-slide="1">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <h1 class="slide-title">НОВИЧКАМ СКИДКА 30% НА ПЕРВЫЙ МЕСЯЦ</h1>
+                                <p class="slide-description">
+                                    Начните свой фитнес-путь с выгодой! Современное оборудование, 
+                                    профессиональные тренеры и уютная атмосфера ждут вас.
+                                </p>
+                                <div class="slide-actions">
+                                    <a href="#trial-form" class="btn btn-large btn-accent">
+                                        <i class="fas fa-percentage"></i> Получить скидку
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide" data-slide="2">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <h1 class="slide-title">БЕСПЛАТНЫЙ БАССЕЙН ДЛЯ ДЕТЕЙ</h1>
+                                <p class="slide-description">
+                                    При покупке годового абонемента - бесплатные занятия в бассейне 
+                                    для детей до 14 лет. Успейте забронировать места!
+                                </p>
+                                <div class="slide-actions">
+                                    <a href="#trial-form" class="btn btn-large btn-accent">
+                                        <i class="fas fa-swimming-pool"></i> Забронировать
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4 -->
+                <div class="slide" data-slide="3">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <h1 class="slide-title">ПЕРСОНАЛЬНЫЙ ТРЕНЕР + ПИТАНИЕ</h1>
+                                <p class="slide-description">
+                                    Специальное предложение: персональный тренер + план питания 
+                                    всего за 12 900 руб./мес. Достигайте целей быстрее!
+                                </p>
+                                <div class="slide-actions">
+                                    <a href="#trial-form" class="btn btn-large btn-accent">
+                                        <i class="fas fa-user-check"></i> Выбрать тренера
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slider Controls -->
+            <div class="slider-controls">
+                <button class="slider-control prev" id="prevSlide" aria-label="Предыдущий слайд">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-control next" id="nextSlide" aria-label="Следующий слайд">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <div class="slider-pagination" id="sliderPagination">
+                    <button class="slider-dot active" data-slide="0" aria-label="Перейти к слайду 1"></button>
+                    <button class="slider-dot" data-slide="1" aria-label="Перейти к слайду 2"></button>
+                    <button class="slider-dot" data-slide="2" aria-label="Перейти к слайду 3"></button>
+                    <button class="slider-dot" data-slide="3" aria-label="Перейти к слайду 4"></button>
+                </div>
+                
+                <div class="slide-counter" id="slideCounter">
+                    <span class="current-slide">1</span> / <span class="total-slides">4</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ПОЧЕМУ ВЫБИРАЮТ FITТOLOGY</h2>
+                <p class="section-subtitle">Современный фитнес-клуб с научным подходом к тренировкам</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h3 class="feature-title">Бассейн 25 метров</h3>
+                    <p class="feature-description">
+                        Просторный бассейн с подогревом, сауной, хамамом и зоной гидромассажа
+                    </p>
+                    <a href="#pool" class="feature-link">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="feature-title">Modern Equipment</h3>
+                    <p class="feature-description">
+                        Тренажеры TechnoGym, Hammer Strength, Life Fitness и другое профессиональное оборудование
+                    </p>
+                    <a href="#equipment" class="feature-link">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3 class="feature-title">Профессиональные тренеры</h3>
+                    <p class="feature-description">
+                        Сертифицированные специалисты с опытом работы от 5 лет. Персональный подход к каждому
+                    </p>
+                    <a href="#trainers" class="feature-link">Подробнее <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="feature-title">Фитнес-тестирование</h3>
+                    <p class="feature-description">
+                        Современная диагностика состава тела и функционального состояния организма
+                    </p>
+                    <a href="#testing" class="feature-link" id="openFitnessTest">Пройти тестирование <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="trial-form">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">ПОПРОБУЙТЕ БЕСПЛАТНУЮ ТРЕНИРОВКУ</h2>
+                <p class="cta-description">
+                    Запишитесь на пробное занятие и получите персональную консультацию тренера. 
+                    Оставьте свои данные, и мы подберем для вас оптимальное время.
+                </p>
+                
+                <form class="trial-form" id="trialForm">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Ваше имя" required class="form-input">
+                        <i class="fas fa-user form-icon"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required class="form-input">
+                        <i class="fas fa-phone form-icon"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select id="service" name="service" class="form-input" required>
+                            <option value="" disabled selected>Выберите услугу</option>
+                            <option value="gym">Тренажерный зал</option>
+                            <option value="pool">Бассейн</option>
+                            <option value="group">Групповые занятия</option>
+                            <option value="personal">Персональный тренинг</option>
+                        </select>
+                        <i class="fas fa-dumbbell form-icon"></i>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-large btn-accent form-submit">
+                        <i class="fas fa-paper-plane"></i> Записаться на пробное занятие
+                    </button>
+                </form>
+                
+                <div class="cta-info">
+                    <p><i class="fas fa-clock"></i> Работаем ежедневно с 7:00 до 23:00</p>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Владимир, ул. Фитнесная, 15</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-text">
+                            <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        </div>
+                        <p class="footer-tagline">Наука о здоровом теле</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Контактная информация</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> г. Владимир, ул. Фитнесная, 15</p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+74922494675">+7 (4922) 49-46-75</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@fittology.ru">info@fittology.ru</a></p>
+                        <p><i class="fas fa-clock"></i> Пн-Пт: 7:00-23:00, Сб-Вс: 8:00-22:00</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#schedule">Расписание</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#cards">Цены и карты</a></li>
+                        <li><a href="#trainers">Тренеры</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 Фитнес-клуб Fittology. Лабораторная работа №10. Все права защищены.</p>
+                <p class="developer">Разработано для лабораторной работы по веб-технологиям</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно фитнес-теста -->
+    <div class="modal-overlay" id="fitnessTestModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Фитнес-тестирование</h2>
+                <button class="modal-close" id="closeTestModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="test-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="testProgress"></div>
+                    </div>
+                    <div class="progress-text">Шаг <span id="currentStep">1</span> из <span id="totalSteps">6</span></div>
+                </div>
+                
+                <form class="fitness-test-form" id="fitnessTestForm">
+                    <!-- Шаг 1: Основная информация -->
+                    <div class="test-step active" data-step="1">
+                        <h3>Основная информация</h3>
+                        <div class="form-group">
+                            <label for="test-name"><i class="fas fa-user"></i> Ваше имя</label>
+                            <input type="text" id="test-name" name="name" required class="form-input" placeholder="Введите ваше имя">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-venus-mars"></i> Пол</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="male" checked>
+                                    <span class="radio-custom"></span>
+                                    <span>Мужской</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="female">
+                                    <span class="radio-custom"></span>
+                                    <span>Женский</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="test-age"><i class="fas fa-birthday-cake"></i> Возраст</label>
+                                <input type="number" id="test-age" name="age" min="16" max="80" required class="form-input" placeholder="Лет">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="test-height"><i class="fas fa-ruler-vertical"></i> Рост</label>
+                                <input type="number" id="test-height" name="height" min="120" max="220" required class="form-input" placeholder="см">
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary next-step" data-next="2">Далее</button>
+                    </div>
+                    
+                    <!-- Шаг 2: Вес и цели -->
+                    <div class="test-step" data-step="2">
+                        <h3>Текущие параметры и цели</h3>
+                        
+                        <div class="form-group">
+                            <label for="test-weight"><i class="fas fa-weight"></i> Текущий вес</label>
+                            <input type="number" id="test-weight" name="weight" min="30" max="200" required class="form-input" placeholder="кг">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-bullseye"></i> Ваша основная цель</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="weight_loss">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Похудеть</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="muscle_gain">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Набрать мышечную массу</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="endurance">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Повысить выносливость</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="tonus">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Привести мышцы в тонус</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="health">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Улучшить здоровье</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="target-weight"><i class="fas fa-flag-checkered"></i> Желаемый вес (необязательно)</label>
+                            <input type="number" id="target-weight" name="target_weight" class="form-input" placeholder="кг">
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline prev-step" data-prev="1">Назад</button>
+                            <button type="button" class="btn btn-primary next-step" data-next="3">Далее</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Шаг 3: Активность и опыт -->
+                    <div class="test-step" data-step="3">
+                        <h3>Уровень активности и опыт</h3>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-running"></i> Уровень физической активности</label>
+                            <select name="activity_level" class="form-input" required>
+                                <option value="" disabled selected>Выберите уровень</option>
+                                <option value="sedentary">Сидячий образ жизни</option>
+                                <option value="light">Легкая активность (1-2 тренировки в неделю)</option>
+                                <option value="moderate">Умеренная активность (3-4 тренировки в неделю)</option>
+                                <option value="active">Высокая активность (5-6 тренировок в неделю)</option>
+                                <option value="athlete">Профессиональный спорт</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-history"></i> Опыт тренировок</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="experience" value="beginner" checked>
+                                    <span class="radio-custom"></span>
+                                    <span>Новичок (менее 6 месяцев)</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="experience" value="intermediate">
+                                    <span class="radio-custom"></span>
+                                    <span>Средний уровень (6 месяцев - 2 года)</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="experience" value="advanced">
+                                    <span class="radio-custom"></span>
+                                    <span>Продвинутый (более 2 лет)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="injuries"><i class="fas fa-plus-circle"></i> Травмы/ограничения (если есть)</label>
+                            <textarea id="injuries" name="injuries" class="form-input" rows="3" placeholder="Опишите травмы или ограничения..."></textarea>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline prev-step" data-prev="2">Назад</button>
+                            <button type="button" class="btn btn-primary next-step" data-next="4">Далее</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Шаг 4: Питание -->
+                    <div class="test-step" data-step="4">
+                        <h3>Привычки питания</h3>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-utensils"></i> Тип питания</label>
+                            <select name="diet_type" class="form-input" required>
+                                <option value="" disabled selected>Выберите тип питания</option>
+                                <option value="balanced">Сбалансированное</option>
+                                <option value="vegetarian">Вегетарианское</option>
+                                <option value="vegan">Веганское</option>
+                                <option value="low_carb">Низкоуглеводное</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-times-circle"></i> Пищевые ограничения</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="restrictions" value="gluten">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Без глютена</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="restrictions" value="lactose">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Без лактозы</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="restrictions" value="nuts">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Без орехов</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="restrictions" value="other">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Другие ограничения</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-tint"></i> Потребление воды (в день)</label>
+                            <select name="water_intake" class="form-input" required>
+                                <option value="" disabled selected>Выберите количество</option>
+                                <option value="low">Менее 1 литра</option>
+                                <option value="medium">1-2 литра</option>
+                                <option value="high">Более 2 литров</option>
+                            </select>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline prev-step" data-prev="3">Назад</button>
+                            <button type="button" class="btn btn-primary next-step" data-next="5">Далее</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Шаг 5: Расписание -->
+                    <div class="test-step" data-step="5">
+                        <h3>Расписание и предпочтения</h3>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Предпочтительное время тренировок</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="time_preference" value="morning">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Утро (6:00 - 10:00)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="time_preference" value="day">
+                                    <span class="checkbox-custom"></span>
+                                    <span>День (10:00 - 16:00)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="time_preference" value="evening">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Вечер (16:00 - 22:00)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> Сколько дней в неделю готовы тренироваться?</label>
+                            <select name="days_per_week" class="form-input" required>
+                                <option value="" disabled selected>Выберите количество дней</option>
+                                <option value="1-2">1-2 дня</option>
+                                <option value="3-4">3-4 дня</option>
+                                <option value="5-6">5-6 дней</option>
+                                <option value="7">Ежедневно</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-dumbbell"></i> Тип тренировок</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="training_type" value="gym">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Тренажерный зал</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="training_type" value="group">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Групповые занятия</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="training_type" value="cardio">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Кардио-тренировки</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="training_type" value="pool">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Бассейн</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="training_type" value="yoga">
+                                    <span class="checkbox-custom"></span>
+                                    <span>Йога/Пилатес</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline prev-step" data-prev="4">Назад</button>
+                            <button type="button" class="btn btn-primary next-step" data-next="6">Далее</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Шаг 6: Контактная информация и результаты -->
+                    <div class="test-step" data-step="6">
+                        <h3>Результаты тестирования</h3>
+                        
+                        <div class="test-results" id="testResults">
+                            <!-- Результаты будут сгенерированы JavaScript -->
+                            <div class="loading-results">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Анализируем ваши данные...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="test-email"><i class="fas fa-envelope"></i> Email для получения детального плана</label>
+                            <input type="email" id="test-email" name="email" required class="form-input" placeholder="example@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="test-phone-final"><i class="fas fa-phone"></i> Телефон для связи</label>
+                            <input type="tel" id="test-phone-final" name="phone" required class="form-input" placeholder="+7 (XXX) XXX-XX-XX">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="consent" required>
+                                <span class="checkbox-custom"></span>
+                                <span>Я согласен на обработку персональных данных</span>
+                            </label>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline prev-step" data-prev="5">Назад</button>
+                            <button type="submit" class="btn btn-accent">
+                                <i class="fas fa-chart-line"></i> Получить персональный план
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/slider.js"></script>
+    <script src="js/fitness-test.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth-ui.js"></script>
+</body>
+</html>

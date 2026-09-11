@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание - Fittology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+    <style>
+        /* Дополнительные стили для страницы расписания */
+        .schedule-hero {
+            margin-top: 90px;
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .schedule-hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .schedule-hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .schedule-container {
+            padding: 80px 0;
+        }
+        
+        .schedule-section {
+            margin-bottom: 60px;
+        }
+        
+        .schedule-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .schedule-title {
+            font-size: 28px;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .schedule-title i {
+            color: var(--primary);
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .schedule-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .schedule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .schedule-card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .schedule-card h3 i {
+            color: var(--primary);
+        }
+        
+        .time-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .time-table th {
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--secondary);
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .time-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .time-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .time-table tr:hover {
+            background: rgba(42, 157, 143, 0.05);
+        }
+        
+        .time-day {
+            font-weight: 600;
+            color: var(--secondary);
+            width: 120px;
+        }
+        
+        .time-hours {
+            color: var(--dark);
+        }
+        
+        .time-note {
+            font-size: 14px;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .schedule-note {
+            background: rgba(233, 196, 106, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .schedule-note h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .schedule-note p {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .schedule-note ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .schedule-note li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .schedule-note li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 40px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .back-button:hover {
+            color: var(--secondary);
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .schedule-hero {
+                padding: 60px 0;
+                margin-top: 80px;
+            }
+            
+            .schedule-hero h1 {
+                font-size: 32px;
+            }
+            
+            .schedule-container {
+                padding: 60px 0;
+            }
+            
+            .schedule-title {
+                font-size: 24px;
+            }
+            
+            .schedule-card {
+                padding: 20px;
+            }
+            
+            .time-table th,
+            .time-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-icon-inner">F</div>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        <span class="logo-tagline">Фитнес с умом</span>
+                    </div>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+    <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home nav-icon"></i>Главная</a></li>
+        <li class="nav-item"><a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt nav-icon"></i>Расписание</a></li>
+        <li class="nav-item"><a href="#services" class="nav-link"><i class="fas fa-dumbbell nav-icon"></i>Услуги</a></li>
+        <li class="nav-item"><a href="cards.html" class="nav-link"><i class="fas fa-credit-card nav-icon"></i>Клубные карты</a></li>
+        <li class="nav-item"><a href="#contacts" class="nav-link"><i class="fas fa-phone-alt nav-icon"></i>Контакты</a></li>
+    </ul>
+</nav>
+
+            <div class="header-actions">
+                <div id="authSlot" class="auth-slot"></div>
+                <div class="phone-number">
+                    <i class="fas fa-phone phone-icon"></i>
+                    <a href="tel:+74922494675" class="phone-link">+7 (4922) 49-46-75</a>
+                </div>
+                <a href="index.html#trial-form" class="btn btn-primary btn-trial" id="trialBtn">
+                    <i class="fas fa-dumbbell btn-icon"></i>Пробная тренировка
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="schedule-hero">
+        <div class="container">
+            <h1>РАСПИСАНИЕ РАБОТЫ КЛУБА</h1>
+            <p>Удобное время для тренировок, бесплатные занятия с тренерами и специальные часы для посещения бассейна</p>
+        </div>
+    </section>
+
+    <!-- Main Schedule -->
+    <section class="schedule-container">
+        <div class="container">
+            <!-- Общее расписание -->
+            <div class="schedule-section">
+                <h2 class="schedule-title"><i class="fas fa-clock"></i> Часы работы клуба</h2>
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-door-open"></i> Основной режим</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День недели</th>
+                                    <th>Часы работы</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Понедельник</td>
+                                    <td class="time-hours">7:00 - 23:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Вторник</td>
+                                    <td class="time-hours">7:00 - 23:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Среда</td>
+                                    <td class="time-hours">7:00 - 23:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Четверг</td>
+                                    <td class="time-hours">7:00 - 23:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Пятница</td>
+                                    <td class="time-hours">7:00 - 23:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Суббота</td>
+                                    <td class="time-hours">8:00 - 22:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Воскресенье</td>
+                                    <td class="time-hours">8:00 - 22:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-swimming-pool"></i> Бассейн</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>Время</th>
+                                    <th>Тип посещения</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">7:00 - 10:00</td>
+                                    <td class="time-hours">Утреннее плавание</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">10:00 - 14:00</td>
+                                    <td class="time-hours">Свободное плавание</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">14:00 - 15:00</td>
+                                    <td class="time-hours">САНИТАРНЫЙ ЧАС</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">15:00 - 18:00</td>
+                                    <td class="time-hours">Детские группы</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">18:00 - 21:00</td>
+                                    <td class="time-hours">Свободное плавание</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">21:00 - 22:00</td>
+                                    <td class="time-hours">Вечернее плавание</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="time-note">* Санитарный час ежедневно с 14:00 до 15:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Бесплатные занятия с тренерами -->
+            <div class="schedule-section">
+                <h2 class="schedule-title"><i class="fas fa-user-friends"></i> Бесплатные занятия с тренерами</h2>
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-dumbbell"></i> Функциональный тренинг</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Тренер</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Понедельник</td>
+                                    <td class="time-hours">18:00 - 19:00</td>
+                                    <td>Анна П.</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Среда</td>
+                                    <td class="time-hours">18:00 - 19:00</td>
+                                    <td>Анна П.</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Пятница</td>
+                                    <td class="time-hours">18:00 - 19:00</td>
+                                    <td>Анна П.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-running"></i> Кардио-зона</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Тренер</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Вторник</td>
+                                    <td class="time-hours">19:00 - 20:00</td>
+                                    <td>Максим К.</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Четверг</td>
+                                    <td class="time-hours">19:00 - 20:00</td>
+                                    <td>Максим К.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-weight"></i> Силовые тренировки</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Тренер</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Суббота</td>
+                                    <td class="time-hours">11:00 - 12:00</td>
+                                    <td>Дмитрий С.</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Воскресенье</td>
+                                    <td class="time-hours">11:00 - 12:00</td>
+                                    <td>Дмитрий С.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-water"></i> Аквааэробика</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Тренер</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Понедельник</td>
+                                    <td class="time-hours">10:00 - 11:00</td>
+                                    <td>Елена В.</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Среда</td>
+                                    <td class="time-hours">10:00 - 11:00</td>
+                                    <td>Елена В.</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Пятница</td>
+                                    <td class="time-hours">10:00 - 11:00</td>
+                                    <td>Елена В.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="schedule-note">
+                    <h4><i class="fas fa-info-circle"></i> Важная информация</h4>
+                    <p>Бесплатные занятия с тренерами включены в стоимость клубной карты:</p>
+                    <ul>
+                        <li>Запись на занятия за 30 минут до начала</li>
+                        <li>Максимальное количество участников: 15 человек</li>
+                        <li>При себе иметь полотенце и сменную обувь</li>
+                        <li>Для посещения бассейна необходима шапочка и справка</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Групповые программы -->
+            <div class="schedule-section">
+                <h2 class="schedule-title"><i class="fas fa-users"></i> Групповые программы</h2>
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-spa"></i> Йога и Пилатес</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Уровень</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Пн, Ср, Пт</td>
+                                    <td class="time-hours">9:00 - 10:00</td>
+                                    <td>Начальный</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Вт, Чт</td>
+                                    <td class="time-hours">19:00 - 20:00</td>
+                                    <td>Продвинутый</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Суббота</td>
+                                    <td class="time-hours">10:00 - 11:30</td>
+                                    <td>Все уровни</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-fire"></i> HIIT тренировки</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Интенсивность</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Пн, Ср, Пт</td>
+                                    <td class="time-hours">19:00 - 20:00</td>
+                                    <td>Высокая</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Суббота</td>
+                                    <td class="time-hours">12:00 - 13:00</td>
+                                    <td>Средняя</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h3><i class="fas fa-child"></i> Детский фитнес</h3>
+                        <table class="time-table">
+                            <thead>
+                                <tr>
+                                    <th>День</th>
+                                    <th>Время</th>
+                                    <th>Возраст</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-day">Вт, Чт</td>
+                                    <td class="time-hours">16:00 - 17:00</td>
+                                    <td>4-7 лет</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Вт, Чт</td>
+                                    <td class="time-hours">17:00 - 18:00</td>
+                                    <td>8-12 лет</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-day">Суббота</td>
+                                    <td class="time-hours">13:00 - 14:30</td>
+                                    <td>7-14 лет</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правила и примечания -->
+            <div class="schedule-section">
+                <h2 class="schedule-title"><i class="fas fa-clipboard-list"></i> Правила и примечания</h2>
+                <div class="schedule-note">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Обязательно к прочтению</h4>
+                    <p><strong>Санитарные часы в бассейне:</strong></p>
+                    <ul>
+                        <li>Ежедневно с 14:00 до 15:00 - технический перерыв</li>
+                        <li>Каждый понедельник с 8:00 до 12:00 - генеральная уборка</li>
+                        <li>Последний четверг месяца - полная дезинфекция (бассейн закрыт)</li>
+                    </ul>
+                    
+                    <p><strong>Правила посещения:</strong></p>
+                    <ul>
+                        <li>Для посещения бассейна необходима медицинская справка</li>
+                        <li>Обязательны: купальник/плавки, шапочка, сменная обувь</li>
+                        <li>Душ до и после посещения бассейна обязателен</li>
+                        <li>Дети до 14 лет только в сопровождении взрослых</li>
+                    </ul>
+                    
+                    <p><strong>Бесплатные услуги:</strong></p>
+                    <ul>
+                        <li>Первая консультация с тренером - 30 минут</li>
+                        <li>Измерение состава тела - раз в месяц</li>
+                        <li>Фитнес-тестирование при покупке абонемента</li>
+                        <li>Пробное занятие в любой группе</li>
+                    </ul>
+                </div>
+                
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Вернуться на главную
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-text">
+                            <span class="logo-main">FITT<span class="logo-accent">OLOGY</span></span>
+                        </div>
+                        <p class="footer-tagline">Наука о здоровом теле</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Контактная информация</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> г. Владимир, ул. Фитнесная, 15</p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+74922494675">+7 (4922) 49-46-75</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@fittology.ru">info@fittology.ru</a></p>
+                        <p><i class="fas fa-clock"></i> Пн-Пт: 7:00-23:00, Сб-Вс: 8:00-22:00</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="schedule.html">Расписание</a></li>
+                        <li><a href="index.html#services">Услуги</a></li>
+                        <li><a href="index.html#cards">Цены и карты</a></li>
+                        <li><a href="index.html#trainers">Тренеры</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2023 Фитнес-клуб Fittology. Лабораторная работа №10. Все права защищены.</p>
+                <p class="developer">Разработано для лабораторной работы по веб-технологиям</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // Адаптация main.js для страницы расписания
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    this.classList.toggle('active');
+                    
+                    const isExpanded = mainNav.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
+                });
+                
+                // Close menu when clicking on a nav link
+                const navLinks = mainNav.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === '#') return;
+                    
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (mainNav && mainNav.classList.contains('active')) {
+                            mainNav.classList.remove('active');
+                            if (mobileMenuBtn) {
+                                mobileMenuBtn.classList.remove('active');
+                                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Active navigation link
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (currentPage.includes(linkHref) || 
+                    (currentPage.includes('schedule.html') && linkHref.includes('schedule'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <script src="js/auth-ui.js"></script>
+</body>
+</html>
