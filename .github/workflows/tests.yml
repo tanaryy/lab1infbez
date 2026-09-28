@@ -1,0 +1,28 @@
+name: CI
+
+# Запускается автоматически при каждом push и при открытии/обновлении Pull Request —
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Unit-тесты (node --test)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачать код репозитория
+        uses: actions/checkout@v4
+
+      - name: Установить Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Запустить unit-тесты
+        run: npm test
