@@ -4,13 +4,15 @@
   "description": "Fitness club website with login/password authentication",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test tests/validators.test.js tests/keyboard-patterns.test.js tests/common-passwords.test.js tests/argon2.test.js"
   },
   "dependencies": {
+    "argon2": "^0.45.1",
     "better-sqlite3": "^11.3.0",
-    "bcrypt": "^5.1.1",
+    "common-password": "^0.1.2",
     "express": "^4.21.0",
-    "express-session": "^1.18.0",
-    "express-rate-limit": "^7.4.0"
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0"
   }
 }

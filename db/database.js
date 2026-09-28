@@ -1,9 +1,12 @@
 const Database = require('better-sqlite3');
 const path = require('path');
 
+// Файл базы данных лежит в data/fitness.db (создаётся автоматически при первом запуске)
 const db = new Database(path.join(__dirname, '..', 'data', 'fitness.db'));
 
-// создаём таблицу пользователей, если её ещё нет.
+// Создаём таблицу пользователей, если её ещё нет.
+// password_hash хранит НЕ пароль, а результат argon2.hash() — необратимый хэш с солью
+// и параметрами алгоритма, встроенными прямо в саму строку.
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
